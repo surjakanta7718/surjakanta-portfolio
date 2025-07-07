@@ -1,0 +1,1345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Surjakanta Das's Portfolio</title>
+  <!-- Google Fonts: Poppins -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap">
+  <!-- Font Awesome for GitHub, Dark Mode, and Hamburger icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+  <style>
+    /* General Styles */
+    body {
+        font-family: 'Poppins', sans-serif;
+        scroll-behavior: smooth;
+        background-color: #f8fafc;
+        color: #1f2937;
+        margin: 0;
+        padding: 0;
+        line-height: 1.6;
+        transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    body.dark {
+        background-color: #1e293b;
+        color: #e5e7eb;
+    }
+
+    .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+    }
+
+    /* Navigation Bar */
+    nav {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        background: linear-gradient(135deg, #3b82f6, #2563eb);
+        color: #ffffff;
+        padding: 20px 24px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        z-index: 1000;
+    }
+
+    body.dark nav {
+        background: linear-gradient(135deg, #60a5fa, #3b82f6);
+    }
+
+    .nav-container {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 16px;
+    }
+
+    .nav-logo {
+        font-size: 1.5rem;
+        font-weight: 600;
+        margin-right: auto;
+    }
+
+    .nav-right {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+    }
+
+    .nav-links {
+        display: flex;
+        gap: 32px;
+        list-style: none;
+        margin: 0;
+        padding: 0;
+    }
+
+    .nav-links li a {
+        color: #ffffff;
+        text-decoration: none;
+        font-size: 1rem;
+        font-weight: 500;
+        transition: color 0.3s ease, transform 0.3s ease;
+        position: relative;
+    }
+
+    .nav-links li a:hover,
+    .nav-links li a.active {
+        color: #f3f4f6;
+    }
+
+    .nav-links li a.active::after {
+        content: '';
+        position: absolute;
+        bottom: -4px;
+        left: 0;
+        width: 100%;
+        height: 2px;
+        background-color: #f3f4f6;
+    }
+
+    .hamburger {
+        display: none;
+        font-size: 1.5rem;
+        background: none;
+        border: none;
+        color: #ffffff;
+        cursor: pointer;
+    }
+
+    @media (max-width: 768px) {
+        .nav-links {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            width: 100%;
+            background: linear-gradient(135deg, #3b82f6, #2563eb);
+            flex-direction: column;
+            padding: 20px 24px;
+            gap: 16px;
+        }
+
+        body.dark .nav-links {
+            background: linear-gradient(135deg, #60a5fa, #3b82f6);
+        }
+
+        .nav-links.active {
+            display: flex;
+        }
+
+        .hamburger {
+            display: block;
+        }
+    }
+
+    /* Theme Toggle Button */
+    .theme-toggle {
+        padding: 8px 12px;
+        background-color: #e5e7eb;
+        color: #1f2937;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        font-size: 0.9rem;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease;
+    }
+
+    body.dark .theme-toggle {
+        background-color: #4b5563;
+        color: #e5e7eb;
+    }
+
+    .theme-toggle:hover {
+        background-color: #d1d5db;
+        transform: scale(1.05);
+    }
+
+    body.dark .theme-toggle:hover {
+        background-color: #6b7280;
+    }
+
+    .theme-toggle i {
+        font-size: 1rem;
+    }
+
+    @media (max-width: 768px) {
+        .theme-toggle {
+            padding: 6px 10px;
+            font-size: 0.85rem;
+        }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        .theme-toggle:hover {
+            transform: none;
+        }
+    }
+
+    /* Adjust content to avoid nav bar overlap */
+    section {
+        padding-top: 80px;
+        opacity: 0;
+        animation: fadeIn 1s ease forwards;
+    }
+
+    .experience-section {
+        animation-delay: 0.2s;
+    }
+
+    .projects-section {
+        animation-delay: 0.4s;
+    }
+
+    .contact-section {
+        animation-delay: 0.6s;
+    }
+
+    @keyframes fadeIn {
+        to {
+            opacity: 1;
+        }
+    }
+
+    /* Profile Section */
+    .profile-section {
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 40px 20px;
+    }
+
+    .profile-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 24px;
+    }
+
+    @media (min-width: 768px) {
+        .profile-container {
+            flex-direction: row;
+            gap: 48px;
+        }
+    }
+
+    .profile-pic {
+        width: 160px;
+        height: 160px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 4px solid #3b82f6;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    body.dark .profile-pic {
+        border-color: #60a5fa;
+    }
+
+    @media (min-width: 768px) {
+        .profile-pic {
+            width: 200px;
+            height: 200px;
+        }
+    }
+
+    .profile-pic:hover {
+        transform: scale(1.05);
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    }
+
+    .profile-info {
+        text-align: center;
+    }
+
+    @media (min-width: 768px) {
+        .profile-info {
+            text-align: left;
+        }
+    }
+
+    .profile-info h1 {
+        font-size: 2.75rem;
+        font-weight: 700;
+        margin-bottom: 16px;
+        color: #111827;
+    }
+
+    body.dark .profile-info h1 {
+        color: #f3f4f6;
+    }
+
+    @media (min-width: 768px) {
+        .profile-info h1 {
+            font-size: 3.5rem;
+        }
+    }
+
+    .profile-buttons {
+        display: flex;
+        justify-content: center;
+        gap: 16px;
+        flex-wrap: wrap;
+    }
+
+    @media (min-width: 768px) {
+        .profile-buttons {
+            justify-content: flex-start;
+        }
+    }
+
+    /* Button Styles */
+    .btn {
+        display: inline-flex;
+        align-items: center;
+        padding: 12px 24px;
+        background: linear-gradient(135deg, #3b82f6, #2563eb);
+        color: #ffffff;
+        border-radius: 8px;
+        font-weight: 500;
+        text-decoration: none;
+        transition: background 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+        opacity: 0;
+        transform: translateY(20px);
+        animation: slideUp 0.5s ease forwards;
+    }
+
+    body.dark .btn {
+        background: linear-gradient(135deg, #60a5fa, #3b82f6);
+    }
+
+    .btn:hover {
+        background: linear-gradient(135deg, #2563eb, #1e40af);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    }
+
+    body.dark .btn:hover {
+        background: linear-gradient(135deg, #3b82f6, #2563eb);
+    }
+
+    .btn-github {
+        padding: 12px 16px;
+    }
+
+    .btn-resume {
+        animation-delay: 0.2s;
+    }
+
+    .btn-github {
+        animation-delay: 0.4s;
+    }
+
+    /* Slide Up Animation */
+    @keyframes slideUp {
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    /* Experience Section */
+    .experience-section {
+        padding: 80px 20px;
+        background-color: #f1f5f9;
+    }
+
+    body.dark .experience-section {
+        background-color: #334155;
+    }
+
+    .experience-section h2 {
+        font-size: 2.5rem;
+        font-weight: 600;
+        text-align: center;
+        margin-bottom: 48px;
+        color: #111827;
+    }
+
+    body.dark .experience-section h2 {
+        color: #f3f4f6;
+    }
+
+    .experience-container {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 32px;
+        justify-items: center;
+    }
+
+    @media (min-width: 768px) {
+        .experience-container {
+            grid-template-columns: repeat(2, 1fr);
+        }
+    }
+
+    .exp-card {
+        max-width: 400px;
+        width: 100%;
+        background-color: #ffffff;
+        padding: 24px;
+        border-radius: 12px;
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    body.dark .exp-card {
+        background-color: #2d3748;
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+    }
+
+    .exp-card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        .exp-card:hover {
+            transform: none;
+        }
+    }
+
+    .exp-card h3 {
+        font-size: 1.5rem;
+        font-weight: 600;
+        margin-bottom: 12px;
+        color: #111827;
+    }
+
+    body.dark .exp-card h3 {
+        color: #f3f4f6;
+    }
+
+    .exp-card p {
+        color: #4b5563;
+        font-size: 0.95rem;
+        margin: 8px 0;
+    }
+
+    body.dark .exp-card p {
+        color: #d1d5db;
+    }
+
+    /* Projects Section */
+    .projects-section {
+        padding: 80px 20px;
+    }
+
+    .projects-section h2 {
+        font-size: 2.5rem;
+        font-weight: 600;
+        text-align: center;
+        margin-bottom: 48px;
+        color: #111827;
+    }
+
+    body.dark .projects-section h2 {
+        color: #f3f4f6;
+    }
+
+    .projects-container {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 32px;
+        justify-items: center;
+    }
+
+    @media (min-width: 768px) {
+        .projects-container {
+            grid-template-columns: repeat(3, 1fr);
+        }
+    }
+
+    .project-card {
+        max-width: 320px;
+        width: 100%;
+        background-color: #ffffff;
+        border-radius: 12px;
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    .project-card.visible {
+        animation: projectAppear 0.5s ease forwards;
+    }
+
+    .project-card:nth-child(1) {
+        animation-delay: 0.1s;
+    }
+
+    .project-card:nth-child(2) {
+        animation-delay: 0.2s;
+    }
+
+    .project-card:nth-child(3) {
+        animation-delay: 0.3s;
+    }
+
+    @keyframes projectAppear {
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        .project-card {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .project-card.visible {
+            animation: none;
+        }
+    }
+
+    body.dark .project-card {
+        background-color: #2d3748;
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+    }
+
+    .project-card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        .project-card:hover {
+            transform: none;
+        }
+    }
+
+    .project-card img {
+        width: 100%;
+        height: 180px;
+        object-fit: cover;
+    }
+
+    .project-info {
+        padding: 20px;
+    }
+
+    .project-info h3 {
+        font-size: 1.25rem;
+        font-weight: 600;
+        margin-bottom: 8px;
+        color: #111827;
+    }
+
+    body.dark .project-info h3 {
+        color: #f3f4f6;
+    }
+
+    .project-info p {
+        color: #4b5563;
+        font-size: 0.9rem;
+    }
+
+    body.dark .project-info p {
+        color: #d1d5db;
+    }
+
+    /* Contact Section */
+    .contact-section {
+        padding: 80px 20px;
+        background-color: #f1f5f9;
+    }
+
+    body.dark .contact-section {
+        background-color: #334155;
+    }
+
+    .contact-section h2 {
+        font-size: 2.5rem;
+        font-weight: 600;
+        text-align: center;
+        margin-bottom: 48px;
+        color: #111827;
+    }
+
+    body.dark .contact-section h2 {
+        color: #f3f4f6;
+    }
+
+    .contact-container {
+        display: flex;
+        justify-content: center;
+    }
+
+    .contact-form {
+        max-width: 500px;
+        width: 100%;
+        background-color: #ffffff;
+        padding: 24px;
+        border-radius: 12px;
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    body.dark .contact-form {
+        background-color: #2d3748;
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+    }
+
+    .contact-form:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+    }
+
+    .contact-form h3 {
+        font-size: 1.5rem;
+        font-weight: 600;
+        margin-bottom: 16px;
+        color: #111827;
+    }
+
+    body.dark .contact-form h3 {
+        color: #f3f4f6;
+    }
+
+    .contact-form .form-group {
+        margin-bottom: 16px;
+    }
+
+    .contact-form label {
+        display: block;
+        font-size: 0.95rem;
+        font-weight: 500;
+        margin-bottom: 8px;
+        color: #4b5563;
+    }
+
+    body.dark .contact-form label {
+        color: #d1d5db;
+    }
+
+    .contact-form input,
+    .contact-form textarea {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #d1d5db;
+        border-radius: 8px;
+        font-size: 0.9rem;
+        background-color: #ffffff;
+        color: #1f2937;
+        transition: border-color 0.3s ease;
+    }
+
+    body.dark .contact-form input,
+    body.dark .contact-form textarea {
+        background-color: #374151;
+        border-color: #4b5563;
+        color: #e5e7eb;
+    }
+
+    .contact-form input:focus,
+    .contact-form textarea:focus {
+        outline: none;
+        border-color: #3b82f6;
+    }
+
+    body.dark .contact-form input:focus,
+    body.dark .contact-form textarea:focus {
+        border-color: #60a5fa;
+    }
+
+    .contact-form textarea {
+        resize: vertical;
+        min-height: 100px;
+    }
+
+    .contact-form button {
+        width: 100%;
+        padding: 12px;
+        background: linear-gradient(135deg, #3b82f6, #2563eb);
+        color: #ffffff;
+        border: none;
+        border-radius: 8px;
+        font-size: 0.95rem;
+        font-weight: 500;
+        cursor: pointer;
+        transition: background 0.3s ease, transform 0.3s ease;
+    }
+
+    body.dark .contact-form button {
+        background: linear-gradient(135deg, #60a5fa, #3b82f6);
+    }
+
+    .contact-form button:hover {
+        background: linear-gradient(135deg, #2563eb, #1e40af);
+        transform: translateY(-2px);
+    }
+
+    body.dark .contact-form button:hover {
+        background: linear-gradient(135deg, #3b82f6, #2563eb);
+    }
+
+    /* Chatbot Styles */
+    .chat-bubble {
+        position: fixed;
+        bottom: 24px;
+        right: 24px;
+        background: linear-gradient(135deg, #3b82f6, #2563eb);
+        color: #ffffff;
+        border-radius: 50%;
+        width: 64px;
+        height: 64px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        transition: background 0.3s ease, transform 0.3s ease;
+        animation: pulse 2s infinite;
+    }
+
+    body.dark .chat-bubble {
+        background: linear-gradient(135deg, #60a5fa, #3b82f6);
+    }
+
+    .chat-bubble:hover {
+        background: linear-gradient(135deg, #2563eb, #1e40af);
+        transform: scale(1.1);
+        animation: none;
+    }
+
+    body.dark .chat-bubble:hover {
+        background: linear-gradient(135deg, #3b82f6, #2563eb);
+    }
+
+    @keyframes pulse {
+        0% { transform: scale(1); }
+        50% { transform: scale(1.05); }
+        100% { transform: scale(1); }
+    }
+
+    .chat-bubble span {
+        font-size: 0.85rem;
+        position: absolute;
+        bottom: 80px;
+        right: 0;
+        background: #ffffff;
+        color: #1f2937;
+        padding: 8px 12px;
+        border-radius: 8px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+        white-space: nowrap;
+        display: block;
+    }
+
+    body.dark .chat-bubble span {
+        background: #2d3748;
+        color: #e5e7eb;
+    }
+
+    .chatbot-overlay {
+        position: fixed;
+        bottom: 100px;
+        right: 24px;
+        width: 360px;
+        max-height: 480px;
+        background-color: #ffffff;
+        border-radius: 16px;
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+        display: none;
+        flex-direction: column;
+        overflow: hidden;
+        transition: transform 0.3s ease;
+    }
+
+    body.dark .chatbot-overlay {
+        background-color: #2d3748;
+    }
+
+    .chatbot-overlay.active {
+        display: flex;
+        transform: translateY(0);
+    }
+
+    .chatbot-header {
+        display: flex;
+        align-items: center;
+        padding: 12px 16px;
+        background: linear-gradient(135deg, #3b82f6, #2563eb);
+        color: #ffffff;
+        border-top-left-radius: 16px;
+        border-top-right-radius: 16px;
+    }
+
+    body.dark .chatbot-header {
+        background: linear-gradient(135deg, #60a5fa, #3b82f6);
+    }
+
+    .chatbot-header .chatbot-profile-pic {
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        margin-right: 12px;
+        border: 2px solid #ffffff;
+    }
+
+    .chatbot-header h3 {
+        font-size: 1.1rem;
+        font-weight: 500;
+    }
+
+    .close-chatbot {
+        margin-left: auto;
+        background: none;
+        border: none;
+        color: #ffffff;
+        font-size: 1.25rem;
+        cursor: pointer;
+        transition: transform 0.3s ease;
+    }
+
+    .close-chatbot:hover {
+        transform: rotate(90deg);
+    }
+
+    .chatbot-messages {
+        flex: 1;
+        padding: 16px;
+        overflow-y: auto;
+        background-color: #f1f5f9;
+    }
+
+    body.dark .chatbot-messages {
+        background-color: #334155;
+    }
+
+    .message {
+        margin-bottom: 12px;
+        padding: 10px 14px;
+        border-radius: 12px;
+        max-width: 80%;
+        position: relative;
+        font-size: 0.9rem;
+    }
+
+    .message-timestamp {
+        font-size: 0.7rem;
+        color: #6b7280;
+        margin-top: 4px;
+        display: block;
+        text-align: right;
+    }
+
+    body.dark .message-timestamp {
+        color: #9ca3af;
+    }
+
+    .user-message {
+        background: linear-gradient(135deg, #3b82f6, #2563eb);
+        color: #ffffff;
+        margin-left: auto;
+    }
+
+    body.dark .user-message {
+        background: linear-gradient(135deg, #60a5fa, #3b82f6);
+    }
+
+    .bot-message {
+        background-color: #e5e7eb;
+        color: #1f2937;
+    }
+
+    body.dark .bot-message {
+        background-color: #4b5563;
+        color: #e5e7eb;
+    }
+
+    .typing {
+        background-color: #e5e7eb;
+        color: #1f2937;
+        display: flex;
+        align-items: center;
+        gap: 4px;
+    }
+
+    body.dark .typing {
+        background-color: #4b5563;
+        color: #e5e7eb;
+    }
+
+    .typing span {
+        display: inline-block;
+        width: 6px;
+        height: 6px;
+        background-color: #6b7280;
+        border-radius: 50%;
+        animation: dotPulse 1.4s infinite ease-in-out;
+    }
+
+    body.dark .typing span {
+        background-color: #9ca3af;
+    }
+
+    .typing span:nth-child(2) {
+        animation-delay: 0.2s;
+    }
+
+    .typing span:nth-child(3) {
+        animation-delay: 0.4s;
+    }
+
+    @keyframes dotPulse {
+        0%, 20% { transform: scale(1); }
+        40% { transform: scale(1.5); }
+        60% { transform: scale(1); }
+        100% { transform: scale(1); }
+    }
+
+    .chatbot-input {
+        display: flex;
+        padding: 12px;
+        border-top: 1px solid #e5e7eb;
+        background-color: #ffffff;
+    }
+
+    body.dark .chatbot-input {
+        border-top: 1px solid #4b5563;
+        background-color: #2d3748;
+    }
+
+    .chatbot-input input {
+        flex: 1;
+        padding: 10px;
+        border: 1px solid #d1d5db;
+        border-radius: 8px;
+        margin-right: 12px;
+        background-color: #ffffff;
+        color: #1f2937;
+        font-size: 0.9rem;
+        transition: border-color 0.3s ease;
+    }
+
+    body.dark .chatbot-input input {
+        background-color: #374151;
+        border-color: #4b5563;
+        color: #e5e7eb;
+    }
+
+    .chatbot-input input:focus {
+        outline: none;
+        border-color: #3b82f6;
+    }
+
+    body.dark .chatbot-input input:focus {
+        border-color: #60a5fa;
+    }
+
+    .chatbot-input button {
+        padding: 10px 20px;
+        background: linear-gradient(135deg, #3b82f6, #2563eb);
+        color: #ffffff;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        font-size: 0.9rem;
+        transition: background 0.3s ease, transform 0.3s ease;
+    }
+
+    body.dark .chatbot-input button {
+        background: linear-gradient(135deg, #60a5fa, #3b82f6);
+    }
+
+    .chatbot-input button:hover {
+        background: linear-gradient(135deg, #2563eb, #1e40af);
+        transform: translateY(-2px);
+    }
+
+    body.dark .chatbot-input button:hover {
+        background: linear-gradient(135deg, #3b82f6, #2563eb);
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+        section {
+            padding-top: 100px;
+        }
+
+        .profile-pic {
+            width: 140px;
+            height: 140px;
+        }
+
+        .profile-info h1 {
+            font-size: 2.25rem;
+        }
+
+        .experience-container,
+        .projects-container {
+            grid-template-columns: 1fr;
+        }
+
+        .exp-card,
+        .project-card,
+        .contact-form {
+            max-width: 100%;
+        }
+
+        .chatbot-overlay {
+            width: 90%;
+            right: 5%;
+            bottom: 80px;
+        }
+    }
+
+    @media (max-width: 640px) {
+        .profile-info h1 {
+            font-size: 1.75rem;
+        }
+
+        .btn {
+            padding: 10px 18px;
+            font-size: 0.85rem;
+        }
+
+        .project-card img {
+            height: 160px;
+        }
+
+        .experience-section h2,
+        .projects-section h2,
+        .contact-section h2 {
+            font-size: 2rem;
+        }
+    }
+  </style>
+</head>
+<body>
+  <!-- Navigation Bar -->
+  <nav>
+    <div class="nav-container container">
+      <div class="nav-logo">Surjakanta Das</div>
+      <div class="nav-right">
+        <ul class="nav-links">
+          <li><a href="#profile" class="active">Profile</a></li>
+          <li><a href="#experience">Experience</a></li>
+          <li><a href="#projects">Projects</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+        <button class="hamburger" aria-label="Toggle Navigation Menu">
+          <i class="fas fa-bars"></i>
+        </button>
+        <button class="theme-toggle" role="button" aria-label="Toggle Dark Mode" onclick="toggleDarkMode()">
+          <i class="fas fa-moon"></i> Theme
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Profile Section -->
+  <section class="profile-section" id="profile">
+    <div class="container">
+      <div class="profile-container">
+        <!-- Profile Picture -->
+        <img src="profile2.png" alt="Surjakanta Das Profile Picture" class="profile-pic">
+        <!-- Name and Buttons -->
+        <div class="profile-info">
+          <h1>SURJAKANTA DAS</h1>
+          <div class="profile-buttons">
+            <a href="Amazon_Resume.pdf" download class="btn btn-resume" aria-label="Download Resume">Download Resume</a>
+            <a href="https://github.com/surjakanta7718" target="_blank" class="btn btn-github" aria-label="View GitHub Profile">
+              <i class="fab fa-github"></i> GitHub
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Experience Section -->
+  <section class="experience-section" id="experience">
+    <div class="container">
+      <h2>Experience</h2>
+      <div class="experience-container">
+        <!-- University/School Card -->
+        <div class="exp-card">
+          <h3>Education</h3>
+          <p>Netaji Subhash Engineering College<br>Bachelor of Technology in Computer Science<br>2023 - 2027</p>
+          <p>Gokulnagar G.J. Siksha Niketan<br>Science Stream<br>2021 - 2023</p>
+        </div>
+        <!-- Technical Experience Card -->
+        <div class="exp-card">
+          <h3>Technical Experience</h3>
+          <p>Software Engineer Intern at Tech Corp<br>Developed web applications using React and Node.js<br>June 2023 - August 2023</p>
+          <p>Freelance Developer<br>Built responsive websites for clients<br>2023 - Present</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Projects Section -->
+  <section class="projects-section" id="projects">
+    <div class="container">
+      <h2>Projects</h2>
+      <div class="projects-container">
+        <!-- Project Card 1 -->
+        <div class="project-card">
+          <img src="https://tangerine-hummingbird-1479b6.netlify.app/assets/project-1.png" alt="Amazon Clone Project">
+          <div class="project-info">
+            <h3>Amazon Clone</h3>
+            <p>Built a front-end e-commerce site using HTML, CSS, and JavaScript.</p>
+          </div>
+        </div>
+        <!-- Project Card 2 -->
+        <div class="project-card">
+          <img src="https://tangerine-hummingbird-1479b6.netlify.app/assets/project-2.png" alt="Freelancing Website Project">
+          <div class="project-info">
+            <h3>Freelancing Website</h3>
+            <p>Developed a full-stack site with Node.js, MongoDB, Express.js, and React.js.</p>
+          </div>
+        </div>
+        <!-- Project Card 3 -->
+        <div class="project-card">
+          <img src="https://tangerine-hummingbird-1479b6.netlify.app/assets/project-3.png" alt="Portfolio Website Project">
+          <div class="project-info">
+            <h3>Portfolio Website</h3>
+            <p>Created a personal portfolio with a chatbot feature.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section class="contact-section" id="contact">
+    <div class="container">
+      <h2>Contact</h2>
+      <div class="contact-container">
+        <div class="contact-form">
+          <h3>Get in Touch</h3>
+          <form>
+            <div class="form-group">
+              <label for="name">Name</label>
+              <input type="text" id="name" placeholder="Your Name" aria-label="Name" required>
+            </div>
+            <div class="form-group">
+              <label for="email">Email</label>
+              <input type="email" id="email" placeholder="Your Email" aria-label="Email" required>
+            </div>
+            <div class="form-group">
+              <label for="message">Message</label>
+              <textarea id="message" placeholder="Your Message" aria-label="Message" required></textarea>
+            </div>
+            <button type="submit" aria-label="Send Message">Send Message</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Chatbot Bubble -->
+  <div class="chat-bubble" onclick="toggleChatbot()" aria-label="Open Chatbot">
+    <i class="fas fa-comment-alt"></i>
+    <span>Ask anything about me</span>
+  </div>
+
+  <!-- Chatbot Overlay -->
+  <div class="chatbot-overlay" id="chatbotOverlay">
+    <div class="chatbot-header">
+      <img src="profile2.png" alt="Surjakanta Das Chatbot Avatar" class="chatbot-profile-pic">
+      <h3>Surjakanta Das</h3>
+      <button class="close-chatbot" onclick="toggleChatbot()" aria-label="Close Chatbot">×</button>
+    </div>
+    <div class="chatbot-messages" id="chatbotMessages">
+      <div class="message bot-message">
+        <p>Hi, I’m Surjakanta Das. What would you like to know about me?</p>
+        <span class="message-timestamp"></span>
+      </div>
+    </div>
+    <div class="chatbot-input">
+      <input type="text" id="chatbotInput" placeholder="Type your question..." aria-label="Chatbot Input">
+      <button onclick="sendMessage()" aria-label="Send Message">Send</button>
+    </div>
+  </div>
+
+  <script>
+    const myDescription = "I’m Surjakanta Das, a B.Tech Computer Science student at Netaji Subhash Engineering College, West Bengal, with a YGPA of 8.74/10. I’m passionate about programming and web development, skilled in C/C++, Python, HTML, CSS, JavaScript, React.js, Node.js, Express.js, and MongoDB. My projects include an Amazon Clone using HTML, CSS, and JavaScript, a full-stack freelancing website with Node.js, MongoDB, Express.js, and React.js, and a personal portfolio with a chatbot feature. I have experience as a Software Engineer Intern at Tech Corp (June 2023 - August 2023) and as a freelance developer building responsive websites. I enjoy creating innovative solutions and exploring new technologies.";
+
+    // Navigation Bar
+    function toggleNav() {
+        const navLinks = document.querySelector('.nav-links');
+        navLinks.classList.toggle('active');
+    }
+
+    function setActiveNavLink() {
+        const sections = document.querySelectorAll('section');
+        const navLinks = document.querySelectorAll('.nav-links a');
+        let currentSection = '';
+
+        sections.forEach(section => {
+            const sectionTop = section.offsetTop;
+            const sectionHeight = section.offsetHeight;
+            if (window.scrollY >= sectionTop - 100 && window.scrollY < sectionTop + sectionHeight - 100) {
+                currentSection = section.getAttribute('id');
+            }
+        });
+
+        navLinks.forEach(link => {
+            link.classList.remove('active');
+            if (link.getAttribute('href') === `#${currentSection}`) {
+                link.classList.add('active');
+            }
+        });
+    }
+
+    // Dark Mode
+    function toggleDarkMode() {
+        document.body.classList.toggle('dark');
+        localStorage.setItem('theme', document.body.classList.contains('dark') ? 'dark' : 'light');
+        updateThemeIcon();
+    }
+
+    function updateThemeIcon() {
+        const icon = document.querySelector('.theme-toggle i');
+        icon.className = document.body.classList.contains('dark') ? 'fas fa-sun' : 'fas fa-moon';
+    }
+
+    function initializeTheme() {
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme === 'dark' || (!savedTheme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.body.classList.add('dark');
+        }
+        updateThemeIcon();
+    }
+
+    // Project Cards Animation
+    function animateProjectCards() {
+        const projectCards = document.querySelectorAll('.project-card');
+        projectCards.forEach(card => {
+            card.classList.add('visible');
+        });
+    }
+
+    // Chatbot
+    function toggleChatbot() {
+        const chatbotOverlay = document.getElementById('chatbotOverlay');
+        chatbotOverlay.classList.toggle('active');
+        if (chatbotOverlay.classList.contains('active')) {
+            document.getElementById('chatbotMessages').scrollTop = document.getElementById('chatbotMessages').scrollHeight;
+        }
+    }
+
+    function getCurrentTimestamp() {
+        const now = new Date();
+        return now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+    }
+
+    async function sendMessage() {
+        const input = document.getElementById('chatbotInput');
+        const messages = document.getElementById('chatbotMessages');
+        const message = input.value.trim();
+        
+        if (!message) return;
+
+        // Append user message
+        const userMessage = document.createElement('div');
+        userMessage.className = 'message user-message';
+        userMessage.innerHTML = `<p>${message}</p><span class="message-timestamp">${getCurrentTimestamp()}</span>`;
+        messages.appendChild(userMessage);
+        input.value = '';
+
+        // Show typing animation
+        const typing = document.createElement('div');
+        typing.className = 'message typing';
+        typing.innerHTML = '<span></span><span></span><span></span>';
+        messages.appendChild(typing);
+        messages.scrollTop = messages.scrollHeight;
+
+        try {
+            const response = await fetch('https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=AIzaSyBAYagfcPbPeiKvSPTgMB2pzKJPwCT7K10', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    contents: [{
+                        parts: [{
+                            text: `You are Surjakanta Das, answering as if in a professional interview. Based on this description: "${myDescription}", respond to the question: "${message}". Use short, concise sentences. Speak in the first person. Keep the tone professional yet approachable. If the question is unrelated to the description, provide a friendly, relevant response. Avoid informal phrases like "hey there", "nice to meet you", or "wanna".`
+                        }]
+                    }]
+                })
+            });
+
+            if (!response.ok) throw new Error('API request failed');
+
+            const data = await response.json();
+            let botReply = data.candidates[0].content.parts[0].text;
+
+            // Clean up Markdown or unexpected formatting
+            botReply = botReply.replace(/[#*`]/g, '').trim();
+
+            // Fallback for generic or irrelevant responses
+            if (botReply.length < 10 || botReply.toLowerCase().includes('i am not sure') || botReply.toLowerCase().includes('sorry')) {
+                botReply = "I’m Surjakanta Das, a Computer Science student. Could you clarify or ask about my skills, projects, or experience?";
+            }
+
+            // Remove typing animation
+            typing.remove();
+
+            // Append bot response
+            const botMessage = document.createElement('div');
+            botMessage.className = 'message bot-message';
+            botMessage.innerHTML = `<p>${botReply}</p><span class="message-timestamp">${getCurrentTimestamp()}</span>`;
+            messages.appendChild(botMessage);
+            messages.scrollTop = messages.scrollHeight;
+        } catch (error) {
+            typing.remove();
+
+            const botMessage = document.createElement('div');
+            botMessage.className = 'message bot-message';
+            botMessage.innerHTML = `<p>Sorry, something went wrong. Please try again!</p><span class="message-timestamp">${getCurrentTimestamp()}</span>`;
+            messages.appendChild(botMessage);
+            messages.scrollTop = messages.scrollHeight;
+        }
+    }
+
+    // Update initial timestamp
+    function setInitialTimestamp() {
+        const initialMessage = document.querySelector('.bot-message .message-timestamp');
+        if (initialMessage) {
+            initialMessage.textContent = getCurrentTimestamp();
+        }
+    }
+
+    // Initialize
+    document.addEventListener('DOMContentLoaded', () => {
+        initializeTheme();
+        setInitialTimestamp();
+        setActiveNavLink();
+        animateProjectCards();
+
+        // Hamburger menu toggle
+        const hamburger = document.querySelector('.hamburger');
+        hamburger.addEventListener('click', toggleNav);
+
+        // Smooth scroll for nav links
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const targetId = link.getAttribute('href').substring(1);
+                document.getElementById(targetId).scrollIntoView({ behavior: 'smooth' });
+                if (window.innerWidth <= 768) {
+                    toggleNav();
+                }
+            });
+        });
+
+        // Update active nav link on scroll
+        window.addEventListener('scroll', setActiveNavLink);
+    });
+  </script>
+</body>
+</html>
